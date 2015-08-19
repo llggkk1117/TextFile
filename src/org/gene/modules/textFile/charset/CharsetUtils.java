@@ -1,24 +1,23 @@
 package org.gene.modules.textFile.charset;
 
 import java.io.UnsupportedEncodingException;
-
-import org.gene.modules.validation.Check;
-
 import com.ibm.icu.text.CharsetDetector;
 import com.ibm.icu.text.CharsetMatch;
+
+import org.gene.modules.validation.Check;
 
 
 public class CharsetUtils
 {
 	public static final String DEFAULT_CHARSET = "ISO-8859-1"; //8859_1
 
-	public static String detectCharset(String str)
+	public static String detectCharset(String str) throws UnsupportedEncodingException
 	{
 		String charsetName = null;
 		if(str!=null && !"".equals(str))
 		{
 			CharsetDetector detector = new CharsetDetector();
-			detector.setText(str.getBytes());
+			detector.setText(str.getBytes(DEFAULT_CHARSET));
 			CharsetMatch match = detector.detect();
 			charsetName = match.getName();
 
@@ -27,7 +26,7 @@ public class CharsetUtils
 		return charsetName;
 	}
 
-	public static String adjust(String str)
+	public static String adjust(String str) throws UnsupportedEncodingException
 	{
 		String result = null;
 		String charsetDetected = null;
@@ -68,5 +67,11 @@ public class CharsetUtils
 	public static String convertCharset(String str, String afterCharset) throws UnsupportedEncodingException
 	{
 		return convertCharset(str, DEFAULT_CHARSET, afterCharset);
+	}
+
+
+	public static void main(String[] args) throws UnsupportedEncodingException
+	{
+		System.out.println(detectCharset("¾î¸Ó³ª"));
 	}
 }
