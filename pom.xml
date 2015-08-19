@@ -4,6 +4,15 @@
 	<groupId>TextFile</groupId>
 	<artifactId>TextFile</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>55.1</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
