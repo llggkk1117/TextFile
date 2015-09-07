@@ -12,19 +12,20 @@ public class Main
 		RandomAccessFile file = new RandomAccessFile("src/org/gene/modules/textFile/test/test.txt", "rwd");
 		//RandomAccessFile file = new RandomAccessFile("src/org/gene/modules/textFile/test/Genesis.json", "rwd");
 
-		// byte array in file -------- ISO-8859-1 (system defaul charset)·Î µðÄÚµù --------> String
+		// byte array in file -------- ISO-8859-1 (system defaul charset)ë¡œ ë””ì½”ë”© --------> String
 		String line = file.readLine();
 		System.out.println(line);
 
 		String charSetName = CharsetUtils.detectCharset(line);
 		System.out.println(charSetName);
 
-		// byte array in file <-------- ISO-8859-1 (system defaul charset)·Î ÀÎÄÚµù -------- String
-		// ÀÌ ¹æ¹ýÀ¸·Î ¿ø·¡ ÆÄÀÏ¿¡ ÀÖ´ø byte array¸¦ ±¸ÇÑ´Ù.
+		// byte array in file <-------- ISO-8859-1 (system defaul charset)ë¡œ ì¸ì½”ë”© -------- String
+		// ì´ ë°©ë²•ìœ¼ë¡œ ì›ëž˜ íŒŒì¼ì— ìžˆë˜ byte arrayë¥¼ êµ¬í•œë‹¤.
 		byte[] byteArray = line.getBytes("ISO-8859-1");
+		System.out.println(byteArray.length);
 
-		// byte array in file -------- EUC-KR ·Î µðÄÚµù --------> String
-		line = new String(byteArray, charSetName);
+		// byte array in file -------- EUC-KR ë¡œ ë””ì½”ë”© --------> String
+		line = new String(byteArray, "EUC-KR");
 		line = line.replace("\uFEFF", "");
 
 		// line = new String(byteArray, "Big5");

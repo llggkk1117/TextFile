@@ -5,11 +5,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharsetDecoder;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Vector;
 
 import org.gene.modules.textFile.charset.Charset;
+import org.gene.modules.textFile.charset.CharsetUtils;
 import org.gene.modules.textFile.fileUtils.FileUtils;
 
 
@@ -145,48 +148,73 @@ public final class TextFile
 
 
 
+//	public synchronized String readCharBack() throws IOException
+//	{
+//		String result = null;
+//
+//		if(this.file!=null && this.readOffset>0)
+//		{
+//			if(this.fileCharset == SYSTEM_DEFAULT_CHARSET)
+//			{
+//				long tempOffset = this.readOffset-1;
+//				if(tempOffset >= 0)
+//				{
+//					this.file.seek(tempOffset);
+//					byte[] buf = new byte[1];
+//					this.file.read(buf);
+//					result = new String(buf);
+//					this.readOffset = tempOffset;
+//				}
+//			}
+//			else
+//			{
+//				int[] numOfBytesSupported = this.fileCharset.getNumOfBytesSupported();
+//				for(int i=0; i<numOfBytesSupported.length; ++i)
+//				{
+//					int numOfBytes = numOfBytesSupported[i];
+//					long tempOffset = this.readOffset-numOfBytes;
+//					if(tempOffset >= 0)
+//					{
+//						this.file.seek(tempOffset);
+//						byte[] buf = new byte[numOfBytes];
+//						this.file.read(buf);
+//						if(this.fileCharset.inRange(buf))
+//						{
+//							result = new String(buf, this.fileCharset.getDisplayName());
+//							this.readOffset = tempOffset;
+//							break;
+//						}
+//					}
+//				}
+//				if(result == null)
+//				{
+//					this.readOffset = this.readOffset-1;
+//					result = "";
+//				}
+//			}
+//		}
+//
+//		return result;
+//	}
+
+
+
 	public synchronized String readCharBack() throws IOException
 	{
 		String result = null;
 
 		if(this.file!=null && this.readOffset>0)
 		{
-			if(this.fileCharset == SYSTEM_DEFAULT_CHARSET)
+			for(int i=1; i<8; ++i)
 			{
-				long tempOffset = this.readOffset-1;
+				long tempOffset = this.readOffset-i;
 				if(tempOffset >= 0)
 				{
 					this.file.seek(tempOffset);
-					byte[] buf = new byte[1];
+					byte[] buf = new byte[i];
 					this.file.read(buf);
 					result = new String(buf);
 					this.readOffset = tempOffset;
-				}
-			}
-			else
-			{
-				int[] numOfBytesSupported = this.fileCharset.getNumOfBytesSupported();
-				for(int i=0; i<numOfBytesSupported.length; ++i)
-				{
-					int numOfBytes = numOfBytesSupported[i];
-					long tempOffset = this.readOffset-numOfBytes;
-					if(tempOffset >= 0)
-					{
-						this.file.seek(tempOffset);
-						byte[] buf = new byte[numOfBytes];
-						this.file.read(buf);
-						if(this.fileCharset.inRange(buf))
-						{
-							result = new String(buf, this.fileCharset.getDisplayName());
-							this.readOffset = tempOffset;
-							break;
-						}
-					}
-				}
-				if(result == null)
-				{
-					this.readOffset = this.readOffset-1;
-					result = "";
 				}
 			}
 		}
@@ -777,7 +805,8 @@ public final class TextFile
 
 	public static void main(String[] args) throws IOException, InterruptedException
 	{
-//		TextFile s = TextFile.getInstance("resource/bible/Korean/°³¿ª°³Á¤/01Ã¢¼¼±â.txt", "UTF-8");
+
+//		TextFile s = TextFile.getInstance("resource/bible/Korean/ê°œì—­ê°œì •/01ì°½ì„¸ê¸°.txt", "UTF-8");
 //		TextFile s = TextFile.getInstance("resource/bible/English/NIV/01-Genesis.txt", "UTF-8");
 //		TextFile s = TextFile.getInstance("sample2.txt", "UTF-8");
 //		System.out.println(s.readLine());
@@ -797,7 +826,7 @@ public final class TextFile
 
 
 		//		s.clear();
-		//		s.writeLine("~12ÇÒ·¼·ç¾ß");
+		//		s.writeLine("~12í• ë ë£¨ì•¼");
 //		System.out.println("Line: "+s.readChar());
 //		System.out.println("Line: "+s.readLine());
 //		System.out.println("Line: "+s.readCharBack());
@@ -814,10 +843,10 @@ public final class TextFile
 //		byte[] b = new byte[]{(byte) 0x0a};
 //		System.out.println("\r\n".equals((char)b[0]+""));
 
-		//		s.writeLine(new String("ÇÒ·¼·ç¾ß!!".getBytes("UTF-16LE"), "8859_1"));
+		//		s.writeLine(new String("í• ë ë£¨ì•¼!!".getBytes("UTF-16LE"), "8859_1"));
 		//		System.out.println("Line: "+s.readLine("8859_1", "UTF-16LE"));
 
-		//		s.writeLine(new String("ÇÒ·¼·ç¾ß!!".getBytes("EUC-KR"), "8859_1"));
+		//		s.writeLine(new String("í• ë ë£¨ì•¼!!".getBytes("EUC-KR"), "8859_1"));
 		//		System.out.println("Line: "+s.readLine("8859_1", "EUC-KR"));
 
 		//		s.writeLine(new String("aaaa".getBytes("8859_1"), "8859_1"));
@@ -850,7 +879,7 @@ public final class TextFile
 
 //		TextFile s = TextFile.getInstance("aaa/bbb/ccc/ddd/mytext.txt", "UTF-8");
 ////		s.clear();
-////		s.writeLine("À¸ÈåÇãÇãÇë");
+////		s.writeLine("ìœ¼íí—ˆí—ˆí—");
 //		System.out.println("Line: "+s.readLine());
 //		System.out.println("Line: "+s.readLine());
 //		System.out.println("Line: "+s.readLineBack());
@@ -876,17 +905,17 @@ public final class TextFile
 //			System.out.println(list.get(i));
 //		}
 
-		System.out.println(FileUtils.getFullPath(new File("src/com/glorious/bible/english/engesv/Acts.java")));
+//		System.out.println(FileUtils.getFullPath(new File("src/com/glorious/bible/english/engesv/Acts.java")));
 	}
 }
 
-// À©µµ¿ì ±âº» charset: 8859_1
-// À¯´ÏÄÚµå: UTF-16LE
+// ìœˆë„ìš° ê¸°ë³¸ charset: 8859_1
+// ìœ ë‹ˆì½”ë“œ: UTF-16LE
 
-// ÇÑ±Û: EUC-KR
+// í•œê¸€: EUC-KR
 
 
-//String word = "¹«±ÃÈ­ ²ÉÀÌ ÇÇ¾ú½À´Ï´Ù.";
+//String word = "ë¬´ê¶í™” ê½ƒì´ í”¼ì—ˆìŠµë‹ˆë‹¤.";
 //System.out.println("utf-8 -> euc-kr        : " + new String(word.getBytes("utf-8"), "euc-kr"));
 //System.out.println("utf-8 -> ksc5601       : " + new String(word.getBytes("utf-8"), "ksc5601"));
 //System.out.println("utf-8 -> x-windows-949 : " + new String(word.getBytes("utf-8"), "x-windows-949"));

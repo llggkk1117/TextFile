@@ -6,6 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>
+		<!--
 		<dependency>
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>icu4j</artifactId>
@@ -16,6 +17,7 @@
 			<artifactId>jchardet</artifactId>
 			<version>1.0</version>
 		</dependency>
+		-->
 	</dependencies>
 
 	<build>

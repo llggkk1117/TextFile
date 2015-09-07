@@ -16,5 +16,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/jchardet-1.1/dist/lib/chardet.jar" sourcepath="lib/jchardet-1.1/src"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

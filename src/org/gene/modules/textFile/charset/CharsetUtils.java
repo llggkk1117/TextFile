@@ -20,58 +20,45 @@ public class CharsetUtils
 			detector.setText(str.getBytes(DEFAULT_CHARSET));
 			CharsetMatch match = detector.detect();
 			charsetName = match.getName();
-
-			System.out.println("--->"+charsetName);
 		}
 		return charsetName;
 	}
 
-	public static String adjust(String str) throws UnsupportedEncodingException
+	public static String correct(String str) throws UnsupportedEncodingException
 	{
 		String result = null;
-		String charsetDetected = null;
-		if(str!=null && !"".equals(str) && (charsetDetected=detectCharset(str))!=null && !DEFAULT_CHARSET.equals(charsetDetected))
+		if(str!=null && !"".equals(str))
 		{
-			try
+			String charsetDetected = detectCharset(str);
+			if(!DEFAULT_CHARSET.equals(charsetDetected))
 			{
-				result = new String(str.getBytes(DEFAULT_CHARSET),charsetDetected);
+				result = convertCharset(str, DEFAULT_CHARSET, charsetDetected);
 			}
-			catch (Throwable t){}
-		}
-
-		if(result==null)
-		{
-			result = str;
 		}
 
 		return result;
 	}
 
-
 	public static String convertCharset(String str, String beforeCharset, String afterCharset) throws UnsupportedEncodingException
 	{
-		String result = null;
+		String result = str;
 		if(Check.isNotBlank(str, beforeCharset, afterCharset) && !beforeCharset.equalsIgnoreCase(afterCharset))
 		{
 			result = new String(str.getBytes(beforeCharset),afterCharset);
 		}
-		else
-		{
-			result = str;
-		}
 
 		return result;
 	}
 
-
-	public static String convertCharset(String str, String afterCharset) throws UnsupportedEncodingException
+	public static String convertCharset(String str, String targetCharset) throws UnsupportedEncodingException
 	{
-		return convertCharset(str, DEFAULT_CHARSET, afterCharset);
+		return convertCharset(str, DEFAULT_CHARSET, targetCharset);
 	}
 
 
 	public static void main(String[] args) throws UnsupportedEncodingException
 	{
-		System.out.println(detectCharset("��ӳ�"));
+		System.out.println(detectCharset("할렐루야"));
+		System.out.println(correct("할렐루야"));
 	}
 }
