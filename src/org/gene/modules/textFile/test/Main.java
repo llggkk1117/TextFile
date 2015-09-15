@@ -16,8 +16,10 @@ public class Main
 		String line = file.readLine();
 		System.out.println(line);
 
-		String charSetName = CharsetUtils.detectCharset(line);
+		String charSetName = CharsetUtils.detectEncoding(line);
 		System.out.println(charSetName);
+
+		System.out.println(CharsetUtils.fixEncoding(line));
 
 		// byte array in file <-------- ISO-8859-1 (system defaul charset)로 인코딩 -------- String
 		// 이 방법으로 원래 파일에 있던 byte array를 구한다.
@@ -25,7 +27,7 @@ public class Main
 		System.out.println(byteArray.length);
 
 		// byte array in file -------- EUC-KR 로 디코딩 --------> String
-		line = new String(byteArray, "EUC-KR");
+		line = new String(byteArray, charSetName);
 		line = line.replace("\uFEFF", "");
 
 		// line = new String(byteArray, "Big5");

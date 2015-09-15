@@ -11,8 +11,8 @@ public class ByteRange
 	public ByteRange(String startingByte, String endingByte)
 	{
 		this.numOfBytes = startingByte.length()/2;
-		this.startingByte = HexStringBinay.h2b(startingByte);
-		this.endingByte = HexStringBinay.h2b(endingByte);
+		this.startingByte = Hex2Byte.h2b(startingByte);
+		this.endingByte = Hex2Byte.h2b(endingByte);
 	}
 
 	public int getNumOfBytes()
@@ -27,7 +27,7 @@ public class ByteRange
 
 	public String getStartingByteHexString()
 	{
-		return HexStringBinay.b2h(this.startingByte);
+		return Hex2Byte.b2h(this.startingByte);
 	}
 
 	public byte[] getEndingByte()
@@ -37,6 +37,6 @@ public class ByteRange
 
 	public String getEndingByteHexString()
 	{
-		return HexStringBinay.b2h(this.endingByte);
+		return Hex2Byte.b2h(this.endingByte);
 	}
 }

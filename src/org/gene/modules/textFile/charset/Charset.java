@@ -87,7 +87,7 @@ public enum Charset
 
 	public boolean inRange(String hexString)
 	{
-		byte[] byteArray = HexStringBinay.h2b(hexString);
+		byte[] byteArray = Hex2Byte.h2b(hexString);
 		return this.inRange(byteArray);
 	}
 

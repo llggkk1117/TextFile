@@ -18,7 +18,7 @@ public class Test
 	public static void fileRead1()
 	{
 		try{
-			FileInputStream fis = new FileInputStream(new File("resource/bible/Korean/°³¿ª°³Á¤/01Ã¢¼¼±â.txt"));
+			FileInputStream fis = new FileInputStream(new File("resource/bible/Korean/ê°œì—­ê°œì •/01ì°½ì„¸ê¸°.txt"));
 
 			InputStreamReader isr = new InputStreamReader(fis,"UTF-8");
 
@@ -68,7 +68,7 @@ public class Test
 	{
 
 		try {
-			String srcText = new String("UTF-8 ÆÄÀÏÀ» »ı¼ºÇÕ´Ï´Ù.");
+			String srcText = new String("UTF-8 íŒŒì¼ì„ ìƒì„±í•©ë‹ˆë‹¤.");
 
 			File targetFile = new File("D:\\output.txt");
 			targetFile.createNewFile();
@@ -95,7 +95,7 @@ public class Test
 			Writer out = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(fileDir), "UTF8"));
 
-			out.append("À¸ÇÏÇÏ").append("\r\n");
+			out.append("ìœ¼í•˜í•˜").append("\r\n");
 			out.flush();
 			out.close();
 
