@@ -10,6 +10,8 @@ public enum Charset
 			new String[]{}
 	),
 
+	// utf 8 code table
+	// http://www.utf8-chartable.de/
 	UTF_8(
 			"UTF-8",
 			new ByteRange[]{
@@ -23,6 +25,9 @@ public enum Charset
 			}
 	),
 
+	// euc-kr code table
+	// http://www.fileformat.info/info/charset/EUC-KR/list.htm
+	// http://www.mkexdev.net/Community/Content.aspx?parentCategoryID=4&categoryID=14&ID=125
 	EUC_KR(
 				"EUC-KR",
 				new ByteRange[]{

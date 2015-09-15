@@ -25,7 +25,7 @@ public class ByteRange
 		return this.startingByte;
 	}
 
-	public String getStartingByteHexString()
+	public String getStartingHex()
 	{
 		return Hex2Byte.b2h(this.startingByte);
 	}
@@ -35,7 +35,7 @@ public class ByteRange
 		return this.endingByte;
 	}
 
-	public String getEndingByteHexString()
+	public String getEndingHex()
 	{
 		return Hex2Byte.b2h(this.endingByte);
 	}

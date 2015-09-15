@@ -223,5 +223,6 @@ public class CharsetUtils
 	public static void main(String[] args) throws IOException
 	{
 		System.out.println(detectFileEncoding("src/org/gene/modules/textFile/test/euc_kr_sample.txt"));
+		System.out.println("\uF0908080");
 	}
 }
